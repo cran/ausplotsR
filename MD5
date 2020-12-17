@@ -1,10 +1,10 @@
-525dc019340b285757a51527e71b5355 *DESCRIPTION
+7d128d41eb964a7fad773cfb35902110 *DESCRIPTION
 cc559fdca9bdd965e5524a172628aa21 *NAMESPACE
 872afb63637d76a3f8e778d8fb1df7b8 *R/ausplots_queries.r
-154e1baf1b75311add1dd4326587fe25 *R/ausplots_visual.R
+4179246bb91ce73e7cffee8e7048d753 *R/ausplots_visual.R
 800c2cc72c52f3dd6ea009530fc25325 *R/basal_area.R
 0e788a7c6e38cff1168c36b29d17a4f1 *R/cumulative_cover.R
-05de9e4ea7fea9d5ae21018cf6f8b186 *R/fraction_pie.R
+d72ba1dc59f1eb2132973f17270a095b *R/fraction_pie.R
 57649993078f5ff26e52ee58842829d2 *R/fractional_cover.R
 2d35f21a9dfb976515b7fe572ca2b8b5 *R/get_ausplots.R
 8ed56950aacc1b17d6e691bffeaaaf15 *R/growth_form_table.R
@@ -20,8 +20,8 @@ b51536518127bdd7e636ff9ffbb73be2 *R/whitt.plot.R
 ec7982b4b2704a9e292f9da6938dc1fa *build/vignette.rds
 232b1d8f3783dd69c96062aaf1449b09 *inst/doc/start_guide.R
 4f8faab46dfd7d7dc5ddb09b5b82f993 *inst/doc/start_guide.Rmd
-c0e0107c2f42b4dea28f2520123a3a35 *inst/doc/start_guide.html
-cb586d1bbe6859979a1712046b70a495 *man/ausplotsR-package.Rd
+b71dc259379a462ab8666eebc7590354 *inst/doc/start_guide.html
+0af0e413dd8808fa07a4d1549a69e3a7 *man/ausplotsR-package.Rd
 18654a6c84cfc9b8c0c32017dc85d937 *man/ausplots_visual.Rd
 77536d16c42f317750bd71a5a8b11304 *man/basal_area.Rd
 92dd62db3c5c4dd5d4789ed64cf417fd *man/fractional_cover.Rd
