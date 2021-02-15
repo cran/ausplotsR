@@ -84,10 +84,7 @@ my.sppBYsites[1:5, 1:5]
 rev(sort(colSums(my.sppBYsites)))[1:10]
 
 ## ---- fig.height = 4, fig.width = 6-------------------------------------------
-#Whittaker plots for some selected AusPlots:
-goeveg::racurves(my.sppBYsites[10:15,], bw=F)
-
-#And then with alternative relative abundance models fitted for communities individually:
+#Whittaker plots for some selected AusPlots with alternative relative abundance models fitted to the plant community data:
 par(mfrow=c(2,2), mar=c(4,4,1,1))
 for(i in c(1:4)) {
   plot(vegan::radfit(round(my.sppBYsites[9+i,], digits=0), log="xy"), pch=20, legend=FALSE, bty="l")
