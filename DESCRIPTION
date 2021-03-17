@@ -1,8 +1,8 @@
 Package: ausplotsR
 Type: Package
 Title: TERN AusPlots Analysis Package
-Version: 1.2.2
-Date: 2021-2-10
+Version: 1.2.3
+Date: 2021-3-12
 Authors@R: c(
     person("Greg", "Guerin", email = "ggueri01@gmail.com", role = c("aut", "cre")),
     person("Tom", "Saleeba", role = "aut"),
@@ -22,7 +22,7 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2021-02-15 05:35:43 UTC; GregG
+Packaged: 2021-03-17 05:53:06 UTC; GregG
 Author: Greg Guerin [aut, cre],
   Tom Saleeba [aut],
   Samantha Munroe [aut],
@@ -30,4 +30,4 @@ Author: Greg Guerin [aut, cre],
   Irene Martín-Forés [aut],
   Andrew Tokmakoff [aut]
 Repository: CRAN
-Date/Publication: 2021-02-15 14:10:09 UTC
+Date/Publication: 2021-03-17 09:30:09 UTC
