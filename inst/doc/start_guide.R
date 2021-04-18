@@ -18,6 +18,13 @@ oldpar <- par(no.readonly = TRUE)
 ## -----------------------------------------------------------------------------
 my.ausplots.data <- get_ausplots(bounding_box = c(125, 140, -40, -10))
 
+## ---- echo=FALSE--------------------------------------------------------------
+if(class(my.ausplots.data) != "list") {
+  message("Vignette aborted due to database connection issue.")
+  knitr::knit_exit()
+}
+
+
 ## -----------------------------------------------------------------------------
 names(my.ausplots.data)
 
