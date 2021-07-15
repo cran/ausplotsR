@@ -5,6 +5,9 @@ cache <- new.env(parent = emptyenv())
   #   library("ausplotsR")
   #   options("ausplotsR_api_url" = "http://localhost:30000")
   #   ...continue to call functions
+  
+  try(configure_sentry("https://8bd2638aad2d45e992f7a3a42ff558a3@o760123.ingest.sentry.io/5792757")) #NOT THE REAL PROJECT
+  
   auth_header <- ""
   the_role <- getOption("ausplotsR_role")
   the_secret <- getOption("ausplotsR_secret")
@@ -30,7 +33,16 @@ cache <- new.env(parent = emptyenv())
   if (httr::http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
-  return(jsonlite::fromJSON(httr::content(resp, "text"), simplifyDataFrame = TRUE))
+  result <- try(jsonlite::fromJSON(httr::content(resp, "text"), simplifyDataFrame = TRUE))
+  
+  if(class(result) == "try-error") {
+    send_report <- TRUE
+  }
+  
+  if(send_report) try(capture_exception(result))
+  if(send_report) stop("Data extraction aborted due to database connection issue.")
+  
+  return(result)
 }
 ################
 #initial filter function
@@ -84,7 +96,7 @@ list_available_plots <- function(Plot_IDs=c(), bounding_box="none", herbarium_de
 
   path <- "search"
   response <- .ausplots_api_with_plot_filter(path, Plot_IDs, extra_query)
-  result <- unique(response$site_location_name)
+  result <- sort(unique(response$site_location_name))
   return(result)
 }
 
@@ -92,7 +104,7 @@ list_available_plots <- function(Plot_IDs=c(), bounding_box="none", herbarium_de
 
 extract_site_info <- function(Plot_IDs) {
   path <- "site"
-  result<-.ausplots_api_with_specified_plot_ids(path, Plot_IDs)
+  result <- .ausplots_api_with_specified_plot_ids(path, Plot_IDs)
   result$state = mapply(function(x) substr(x, 0, 2), result$site_location_name)
   result$state[result$state == "NS"] <- "NSW"
   result$state[result$state == "QD"] <- "QLD"
@@ -144,7 +156,7 @@ extract_basal <- function(Plot_IDs, herbarium_determination_search=NULL, family_
    if(!is.null(standardised_name_search)) { 
      extra_query = append(extra_query, list("standardised_name" = paste("ilike.*", standardised_name_search, "*", sep="")))#search by standardised_name
    } 
-  return(.ausplots_api_with_specified_plot_ids(path, Plot_IDs, extra_query))
+   return(.ausplots_api_with_specified_plot_ids(path, Plot_IDs, extra_query))
 }
 
 ############################
