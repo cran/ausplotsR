@@ -1,6 +1,6 @@
-9fbb60da4321540fc738cc4eb4f5e27c *DESCRIPTION
-cb4f934ffe0055fd6404e60b5f045513 *NAMESPACE
-80dec9e94078834305e85822d06449ff *R/ausplots_queries.r
+928ae900a7e04c11ebec2b76a878b35a *DESCRIPTION
+19dc362f5be4d9f62be4bd6c25c967e6 *NAMESPACE
+ea96e8d76f9a327b811e343656eddff7 *R/ausplots_queries.r
 4179246bb91ce73e7cffee8e7048d753 *R/ausplots_visual.R
 800c2cc72c52f3dd6ea009530fc25325 *R/basal_area.R
 0e788a7c6e38cff1168c36b29d17a4f1 *R/cumulative_cover.R
@@ -18,10 +18,10 @@ a123a4f6822ccf64c5dc062b5807486f *R/species_optimisation.R
 73dcd3b910331317d1ca3f5ee542b95b *R/species_table.R
 b51536518127bdd7e636ff9ffbb73be2 *R/whitt.plot.R
 ec7982b4b2704a9e292f9da6938dc1fa *build/vignette.rds
-8f23ad0e9830042a6f6cb1fe45214778 *inst/doc/start_guide.R
+72349c2c66306bb48826995cd45df085 *inst/doc/start_guide.R
 cc7d5390aaf67da95a9d3f3feb333a23 *inst/doc/start_guide.Rmd
-10d9209fa8bde6392324d5dba981fd85 *inst/doc/start_guide.html
-2e600a6cd85069cbd531c2d665b01abc *man/ausplotsR-package.Rd
+47d8749560cdadc35d4afc4c4c3a9487 *inst/doc/start_guide.html
+07d31daf639f41762f588972ec152f1f *man/ausplotsR-package.Rd
 18654a6c84cfc9b8c0c32017dc85d937 *man/ausplots_visual.Rd
 a72e07df86f496d944c078ebf1ce2e35 *man/basal_area.Rd
 bad5b214473689964e9b5f98c74d118f *man/fractional_cover.Rd
