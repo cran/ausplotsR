@@ -76,7 +76,7 @@ points(ND$latitude, ND$predict , type="l", lwd=2, col="darkblue")
 #The species_table function below can also take the `$veg.voucher` module as input, but `m_kind="PA"` must be specified to get a sensible presence/absence output.
 
 ## -----------------------------------------------------------------------------
-#The 'species_name' argument below specifies use of the "standardised_name" field to identify species, which is based on herbarium_determination names (i.e., "HD" option in species_name) matched to accepted scientific name according to a standard (http://www.worldfloraonline.org/).
+#The 'species_name' argument below specifies use of the "standardised_name" field to identify species, which is based on herbarium_determination names (i.e., "HD" option in species_name) matched to accepted scientific name according to a standard (APC: https://www.anbg.gov.au/cpbr/program/hc/hc-APC.html).
 
 ## -----------------------------------------------------------------------------
 my.sppBYsites <- species_table(my.ausplots.data$veg.PI, m_kind="percent_cover", cover_type="PFC", species_name="SN")
