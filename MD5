@@ -1,6 +1,6 @@
-ad0ef147f1c4b327b019e1a7fd3d51d2 *DESCRIPTION
-5e52fdc217a95689b3ade72a1c46d8ee *NAMESPACE
-2008bde2b3914ee18f827cd4786c9a03 *R/ausplots_queries.r
+494372e57ea53d55c02c295e621fdff8 *DESCRIPTION
+8abf68c48d2679b3bb15dbfc8957337f *NAMESPACE
+a6f097aace599df74957fc258e838141 *R/ausplots_queries.r
 eb5bb4abeec4beaf0c35ec1d049cd03b *R/ausplots_visual.R
 bb79f28dcc5c14c2f1e40d8aa83611b5 *R/basal_area.R
 0d0364dd695e9a3c80403f17e5c9d991 *R/cumulative_cover.R
@@ -21,7 +21,7 @@ f9bbf1f98427bbbe8f4a2427336b5106 *R/species_table.R
 b826f2c62d12654c490363a1b9539e64 *build/vignette.rds
 870b5f0482a0bd3a67d07337c55d6e3f *inst/doc/start_guide.R
 2d6c226de7a8008444ddcf8b373cfcb1 *inst/doc/start_guide.Rmd
-ee8bb297b3092efbad2ee10c7fdf7e82 *inst/doc/start_guide.html
+0d9b1e2a1b7d5fa349328484475290ee *inst/doc/start_guide.html
 8f79d7a0fdb4ac772d061bd90f2edf39 *man/ausplotsR-package.Rd
 e607006d96465c13222721d19a99b918 *man/ausplots_visual.Rd
 85a1783c01d838325c9b4aa811676804 *man/basal_area.Rd
