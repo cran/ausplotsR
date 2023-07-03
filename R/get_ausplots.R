@@ -1,6 +1,6 @@
-get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summaries=FALSE, veg.vouchers=TRUE,
-                         veg.PI =TRUE, basal.wedge=FALSE, soil_subsites=FALSE, soil_bulk_density=FALSE,
-                         soil_character=FALSE, bounding_box="none", herbarium_determination_search=NULL, 
+get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summaries=FALSE, veg.vouchers=FALSE,
+                         veg.PI=FALSE, basal.wedge=FALSE, soil_subsites=FALSE, soil_bulk_density=FALSE,
+                         soil_character=FALSE, plot_search=NULL, bounding_box="none", herbarium_determination_search=NULL, 
                          family_search=NULL, standardised_name_search=NULL, dictionary=FALSE) {
 
 	#
@@ -49,6 +49,10 @@ get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summarie
 
 	#input checks
 	
+	plot_Search_is_not_null_or_single_char_vector <- !is.null(plot_search) && !(is.character(plot_search) && is.vector(plot_search) && length(plot_search) == 1)
+	if(plot_Search_is_not_null_or_single_char_vector) stop("plot_search must be a single element character vector") #
+	
+	
 	herb_is_not_null_or_single_char_vector <- !is.null(herbarium_determination_search) && !(is.character(herbarium_determination_search) && is.vector(herbarium_determination_search) && length(herbarium_determination_search) == 1)
 	if(herb_is_not_null_or_single_char_vector) stop("herbarium_determination_search must be a single element character vector") #
 	
@@ -67,13 +71,15 @@ get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summarie
 	is_herbarium_determination_and_standardised_name_supplied <- !is.null(herbarium_determination_search) && !is.null(standardised_name_search)
 	if(is_herbarium_determination_and_standardised_name_supplied) stop("you can specify one of either family_search, herbarium_determination_search, or standardised_name_search") # 
 	
-	if(!inherits(my.Plot_IDs, "character")) {stop("Plot_IDs must be provided as a character vector.")}
-	
+	if(!inherits(my.Plot_IDs, "character")) {stop("my.Plot_IDs must be provided as a character vector.")}
+	if(my.Plot_IDs[1] != "none" & !is.null(plot_search)) {stop("Please provide EITHER my.Plot_IDs OR plot_search, not both.")}
+	if(!(all(grepl("-", my.Plot_IDs)) | !any(grepl("-", my.Plot_IDs)))) {stop("my.Plot_IDs must list either site_location_name OR site_unique (hyphenated concatenation of site_location_name and visit_number) - NOT both.")}
 	
 	#####list available plots
 
 	my.Plot_IDs <- sort(my.Plot_IDs)
-	Plot_IDs <- list_available_plots(Plot_IDs=my.Plot_IDs, bounding_box=bounding_box, herbarium_determination_search=herbarium_determination_search, family_search=family_search, standardised_name_search=standardised_name_search)
+
+		Plot_IDs <- list_available_plots(Plot_IDs=my.Plot_IDs, plot_search=plot_search, bounding_box=bounding_box, herbarium_determination_search=herbarium_determination_search, family_search=family_search, standardised_name_search=standardised_name_search)
 	
 	
 	#check that plot IDs specified by user actually exist 
@@ -84,9 +90,9 @@ get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summarie
 		
 		if(!all(my.Plot_IDs %in% Plot_IDs)) { #rules that apply if some user plot IDs aren't matched in the available plot names
 			
-			if(!any(my.Plot_IDs %in% Plot_IDs)) {stop("None of the user-supplied Plot_IDs match available plot names.")}
+			if(!any(my.Plot_IDs %in% Plot_IDs)) {stop("None of the user-supplied Plot_IDs match available plot names for that search.")}
 			
-			warning("Not all user-supplied Plot_IDs match available plot names, only matching plots will be extracted.")
+			warning("Not all user-supplied Plot_IDs match available plot names for that search, only matching plots will be extracted.")
 			
 			my.Plot_IDs <- my.Plot_IDs[which(my.Plot_IDs %in% Plot_IDs)]
 			
@@ -112,13 +118,48 @@ get_ausplots <- function(my.Plot_IDs="none", site_info=TRUE, structural_summarie
 	if(site_info) {
 		
 	  site.info <- extract_site_info(Plot_IDs)  #
-
+	  
+	  if(!length(Plot_IDs) < 1) {
+	     
 		#site.info$site_unique <- do.call(paste, c(site.info[c("site_location_name", "site_location_visit_id")], sep = "-")) #add unique site/visit identifier for surveys, will make table merges easier later
 		site.info <- data.frame(site_unique = do.call(paste, c(site.info[c("site_location_name", "site_location_visit_id")], sep = "-")), site.info)
 		
+		#Add column with visit dates reformatted as class "Date" (default date/time column is read as character string).
+		site.info$visit_date <- as.Date(unlist(lapply(strsplit(site.info$visit_start_date, "T"), function(x) paste(x[1]))))
+		
+		#Rank visit order:	#vector of plots that have a revisit
+		revisited_plots <- unique(site.info$site_location_name[which(duplicated(site.info$site_location_name))])
+		
+		if(length(revisited_plots) > 0) {
+		  
+		  n <- 0
+		  for(i in revisited_plots) {
+		    n <- n + 1
+		    current_site <- site.info[site.info$site_location_name == i,]
+		    current_site <- current_site[order(current_site$visit_date),]
+		    current_site$visit_number <- seq(from = 1, to = nrow(current_site))
+		    if(n == 1) {current_site_master <- current_site}
+		    if(n > 1) {current_site_master <- rbind(current_site_master, current_site)}
+		  }
+		  
+		  #merge visit rank back into main table - use left join so revisited data area added to ALL rows/plots including single visit sites. #effectively just adds a visit_number column to existing site data, with NA entered for single-visits...
+		  site.info <- merge(site.info, current_site_master[,c("site_unique", "visit_number")], by="site_unique", all.x=TRUE)
+		  
+		  #convert NAs for no revisit to '1'
+		  site.info$visit_number[is.na(site.info$visit_number)] <- 1
+		  
+		} #close if(length(revisited) > 0)
+		
+		if(length(revisited_plots) == 0) {
+		  
+		  site.info$visit_number <- 1
+		  
+		} #close if(length(revisited) == 0 )
 		
 		ausplots.data$site.info <- site.info
 
+	  } # end if length plot ids 1 or more
+		
 	} #end if(site_info)
 	
 	#
@@ -261,5 +302,4 @@ ausplots.data$citation <- paste0("TERN (", format(Sys.Date(), format="%Y"), ") A
 	
 } # end function
 
-utils::globalVariables(c("bioregion.f", "height", "family", "herbarium_determination", "standardised_name", "site_location_name", "site_unique", 
-                         "hits_unique", "growth_form", "longitude", "latitude", "long", "lat", "group", "Tree_cover", "dead", "genus_species", "taxa_group"))
+utils::globalVariables(c("bioregion.f", "height", "family", "herbarium_determination", "standardised_name", "site_location_name", "site_unique", "hits_unique", "growth_form", "longitude", "latitude", "long", "lat", "group", "Tree_cover", "dead", "genus_species", "taxa_group", "visit_number", "genus"))

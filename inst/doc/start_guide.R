@@ -16,7 +16,7 @@ oldpar <- par(no.readonly = TRUE)
 #See ?get_ausplots to explore all data modules available
 
 ## -----------------------------------------------------------------------------
-my.ausplots.data <- try(get_ausplots(bounding_box = c(125, 140, -40, -10)))
+my.ausplots.data <- try(get_ausplots(veg.PI=TRUE, veg.vouchers=TRUE, bounding_box = c(125,140,-40,-10)))
 
 ## ---- echo=FALSE--------------------------------------------------------------
 if(class(my.ausplots.data) != "list") {
@@ -49,7 +49,7 @@ my.fractional <- fractional_cover(sites100)
 head(my.fractional)
 
 ## -----------------------------------------------------------------------------
-my.fractional <- merge(my.fractional, my.ausplots.data$site.info, by="site_unique")[,c("site_unique", "bare", "brown", "green", "NA.", "longitude", "latitude")]
+my.fractional <- merge(my.fractional, my.ausplots.data$site.info, by="site_unique")[,c("site_unique", "bare", "brown", "green", "other", "longitude", "latitude")]
 
 my.fractional <- na.omit(my.fractional)
 
@@ -102,11 +102,11 @@ for(i in c(1:4)) {
 #The species_list function is designed to take $veg.voucher as input but can also take $veg.PI
 
 ## -----------------------------------------------------------------------------
-#print a list of genus_species-only records from selected plots:
-species_list(subset(my.ausplots.data$veg.vouch, site_unique %in% unique(site_unique)[1:2]), grouping="by_site", species_name="GS")
+#print a list of genus_species-only records from selected plots (for demonstration we print only part):
+species_list(my.ausplots.data$veg.vouch, grouping="by_site", species_name="GS")[1:2]
 
 #overall species list ordered by family (for demonstration we print only part):
-species_list(my.ausplots.data$veg.vouch, grouping="collapse", species_name="SN", append_family=TRUE)[1:20]
+species_list(my.ausplots.data$veg.vouch, grouping="collapse", species_name="SN", append_family=TRUE)[1:50]
 
 ## ---- echo=FALSE--------------------------------------------------------------
 par(oldpar)
