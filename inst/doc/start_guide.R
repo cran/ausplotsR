@@ -6,10 +6,10 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ---- warning=FALSE, message=FALSE, error=FALSE-------------------------------
+## ----warning=FALSE, message=FALSE, error=FALSE--------------------------------
 library(ausplotsR)
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 oldpar <- par(no.readonly = TRUE)
 
 ## -----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ oldpar <- par(no.readonly = TRUE)
 ## -----------------------------------------------------------------------------
 my.ausplots.data <- try(get_ausplots(veg.PI=TRUE, veg.vouchers=TRUE, bounding_box = c(125,140,-40,-10)))
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 if(class(my.ausplots.data) != "list") {
   message("Vignette aborted due to database connection issue.")
   knitr::knit_exit()
@@ -42,7 +42,7 @@ map_ausplots(my.ausplots.data)
 ## -----------------------------------------------------------------------------
 head(subset(my.ausplots.data$veg.PI, !is.na(herbarium_determination)))
 
-## ---- warning=FALSE-----------------------------------------------------------
+## ----warning=FALSE------------------------------------------------------------
 sites100 <- my.ausplots.data$veg.PI[which(my.ausplots.data$veg.PI$site_unique  %in% sample(my.ausplots.data$site.info$site_unique, 100)), ]
 my.fractional <- fractional_cover(sites100)
 
@@ -55,10 +55,10 @@ my.fractional <- na.omit(my.fractional)
 
 head(my.fractional)
 
-## ---- fig.height = 4, fig.width = 6-------------------------------------------
+## ----fig.height = 4, fig.width = 6--------------------------------------------
 plot(bare ~ latitude, data=my.fractional, pch=20, bty="l")
 
-## ---- fig.height = 4, fig.width = 6-------------------------------------------
+## ----fig.height = 4, fig.width = 6--------------------------------------------
 my.fractional$quadratic <- my.fractional$latitude^2
 
 LM <- lm(bare ~ latitude + quadratic, data=my.fractional)
@@ -90,7 +90,7 @@ my.sppBYsites[1:5, 1:5]
 ## -----------------------------------------------------------------------------
 rev(sort(colSums(my.sppBYsites)))[1:10]
 
-## ---- fig.height = 4, fig.width = 6-------------------------------------------
+## ----fig.height = 4, fig.width = 6--------------------------------------------
 #Whittaker plots for some selected AusPlots with alternative relative abundance models fitted to the plant community data:
 par(mfrow=c(2,2), mar=c(4,4,1,1))
 for(i in c(1:4)) {
@@ -108,6 +108,6 @@ species_list(my.ausplots.data$veg.vouch, grouping="by_site", species_name="GS")[
 #overall species list ordered by family (for demonstration we print only part):
 species_list(my.ausplots.data$veg.vouch, grouping="collapse", species_name="SN", append_family=TRUE)[1:50]
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 par(oldpar)
 

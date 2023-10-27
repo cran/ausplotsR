@@ -1,4 +1,4 @@
-3bb2681351e9e689b7bbb253e4fbd64b *DESCRIPTION
+8214cb1d0f831e372d32840daeed6618 *DESCRIPTION
 c216c24cc8ebee4399f4f68398fbf26f *NAMESPACE
 3943b5461b38b43850ec032d8dcfc82b *NEWS.md
 4256f98f90593462322936aed2f82eac *R/ausplots_queries.r
@@ -22,15 +22,15 @@ fbaf6383c42ac7e1108e4b16de58e2d0 *R/species_table.R
 2907badea5fc21ed4f6998bfbcc85eca *R/trajectoryPlots_ausplots.R
 46a0bb8c3630e1ba88e82fe4c9d7d7a3 *R/whitt.plot.R
 b826f2c62d12654c490363a1b9539e64 *build/vignette.rds
-a84d4816c70f6e199e9cfe3dff069182 *inst/doc/start_guide.R
+1f24ee3c1e1f049e377e5537dfc86963 *inst/doc/start_guide.R
 952328cfac4d2617940e396cbd36d35e *inst/doc/start_guide.Rmd
-0a7869fc5e34014459654cff11013d33 *inst/doc/start_guide.html
-11ed4861eea1ecffce3ae20711d715c3 *man/ausplotsR-package.Rd
+b86faf25e6533aaac15b3528330a9314 *inst/doc/start_guide.html
+3922f31a4d7d04541dd2c8c00bf6dba0 *man/ausplotsR-package.Rd
 c7a14b1b36c21fe677f01fa419191395 *man/ausplots_trajectory.Rd
 730f630b92c72ea873296c2d1cdf26bc *man/ausplots_visual.Rd
 c0efa564be67a33d1ca41756e77a344f *man/basal_area.Rd
-6bb9cfd3a943ff5394b39b04fcbf7910 *man/fractional_cover.Rd
-e8d0c2f427f050f2f5793c9e48e6cf41 *man/get_ausplots.Rd
+4373aab8b2edc09251cf73a09e538dde *man/fractional_cover.Rd
+a7bf6089eaa03edf8a4d72fad7898fc7 *man/get_ausplots.Rd
 0f861abc883a3b2cedf9ab5ff6bd9166 *man/growth_form_table.Rd
 ff82faeb73a960178ecaf74177775a4b *man/optim_species.Rd
 7f2db8a165912357dd5e28e68f4e3158 *man/plot_opt.Rd
