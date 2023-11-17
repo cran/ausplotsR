@@ -19,7 +19,7 @@ oldpar <- par(no.readonly = TRUE)
 my.ausplots.data <- try(get_ausplots(veg.PI=TRUE, veg.vouchers=TRUE, bounding_box = c(125,140,-40,-10)))
 
 ## ----echo=FALSE---------------------------------------------------------------
-if(class(my.ausplots.data) != "list") {
+if(!inherits(my.ausplots.data, "list")) {
   message("Vignette aborted due to database connection issue.")
   knitr::knit_exit()
 }
